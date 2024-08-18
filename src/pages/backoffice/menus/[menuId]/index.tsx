@@ -57,7 +57,7 @@ export default function UpdatingMenu() {
   const handleUpdatingMenu = async () => {
     await fetch(`${config.backofficeApiUrl}/menus`, {
       method: "PUT",
-      body: JSON.stringify(menu),
+      body: JSON.stringify({...menu,menuCategoryId:selectedMenuCategoryId}),
     });
     router.push("/backoffice/menus");
   };

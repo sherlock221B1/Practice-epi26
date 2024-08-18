@@ -46,7 +46,7 @@ export default function Menu() {
           <Button
             variant="contained"
             onClick={() => {
-              router.push("/backoffice/addingMenus");
+              router.push("/backoffice/menus/addingMenus");
             }}
           >
             Create New

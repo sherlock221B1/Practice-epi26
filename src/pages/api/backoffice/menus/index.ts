@@ -29,7 +29,8 @@ export default async function handler(
     });
     res.end();
   } else if (method === "PUT") {
-    const menu: Menus = JSON.parse(req.body);
+    const menu = JSON.parse(req.body);
+    console.log("menu is", menu);
     await prisma.menus.update({
       data: {
         name: menu.name,
@@ -38,6 +39,16 @@ export default async function handler(
       },
       where: { id: menu.id },
     });
+    const sameMenuCategoryId =
+      menu.menuCategoryId == menu.menusCategoriesAndMenus[0].menuCategoriesId;
+    if (!sameMenuCategoryId) {
+      console.log("not same");
+      await prisma.menusCategoriesAndMenus.update({
+        data: { menuCategoriesId: menu.menuCategoryId },
+        where: { id: menu.menusCategoriesAndMenus[0].id },
+      });
+    }
+
     res.end();
   }
 }
